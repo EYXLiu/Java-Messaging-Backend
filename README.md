@@ -12,8 +12,8 @@ Implemented Redis cacheing for active and inactive users, reducing latency and a
 To access the Kafka topic, first, create a SockJS websocket subscription to `HOST:PORT/ws` <br/>
 Then, subscripe to '/topic/chat' to start receiving messages <br/>
 Messages should be sent as a JSON package to '/app/chat' <br/>
-Sample Code 
-`npm install @stomp/stompjs sockjs-client`
+Sample Code <br/>
+`npm install @stomp/stompjs sockjs-client` <br/>
 ```
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
