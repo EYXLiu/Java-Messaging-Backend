@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javamessaging.model.User;
+import com.javamessaging.service.RedisService;
 import com.javamessaging.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private RedisService redisService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
@@ -29,6 +33,7 @@ public class UserController {
             throw new IllegalArgumentException("A user with this email already exists.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        redisService.setUserOnline(user.getId());
         return userService.registerUser(user);
     }
 
@@ -46,6 +51,13 @@ public class UserController {
         if (passwordEncoder.matches(u.get().getPassword(), request.get("password"))) {
             return u.get();
         }
+        redisService.setUserOnline(request.get("id"));
         throw new IllegalArgumentException("Incorrect password");
     }
+
+    @PostMapping("/logout")
+    public void logoout(@RequestBody Map<String, String> request) {
+        redisService.setUserOffline(request.get("id"));
+    }
+    
 }
