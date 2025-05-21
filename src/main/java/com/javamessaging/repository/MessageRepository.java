@@ -9,5 +9,5 @@ public interface MessageRepository extends MongoRepository<Message, String> {
     
     List<Message> findTop50ByOrderByTimestampDesc();
 
-    List<Message> findByRoomId(String id);
+    List<Message> findBySenderId(String id);
 }
