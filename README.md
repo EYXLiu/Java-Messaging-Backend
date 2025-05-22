@@ -44,6 +44,7 @@ const sendMessage = (text, sender) => {
   });
 };
 ```
+
 # Kafka Commands
 For personal reference but also useful in general, I've found setting up kafka locally is a pain sometimes. There's id-issues and problems when restarting kafka sessions. 
 To start, make sure to clear logs using `rm -rf /tmp/kraft-combined-logs/*`
