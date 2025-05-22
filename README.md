@@ -44,3 +44,9 @@ const sendMessage = (text, sender) => {
   });
 };
 ```
+# Kafka Commands
+For personal reference but also useful in general, I've found setting up kafka locally is a pain sometimes. There's id-issues and problems when restarting kafka sessions. 
+To start, make sure to clear logs using `rm -rf /tmp/kraft-combined-logs/*`
+Then create a new location to store logs with `bin/kafka-storage.sh format -t <random-key> -c config/server.properties`
+* If this doesn't work, edit the server.properties file to include the line "controller.quorum.voters=1@HOST:PORT", that might be the issue. Make sure it aligns with the number of node.id's you've set, so more than one means more than one port for the controller.quorum.voters. 
+Finally start Kafka using `bin/kafka-server-start.sh config/server.properties`
