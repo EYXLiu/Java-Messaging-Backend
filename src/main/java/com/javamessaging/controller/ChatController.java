@@ -19,7 +19,7 @@ public class ChatController {
     private ChatService chatService;
 
     @MessageMapping("/chat")
-    public Message handleChat(Message message) {
+    public void handleChat(Message message) {
         chatService.sendToKafka(message);
     }
 
