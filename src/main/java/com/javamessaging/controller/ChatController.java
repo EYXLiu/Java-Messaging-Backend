@@ -19,10 +19,8 @@ public class ChatController {
     private ChatService chatService;
 
     @MessageMapping("/chat")
-    @SendTo("/topic/chat")
     public Message handleChat(Message message) {
         chatService.sendToKafka(message);
-        return message;
     }
 
     @GetMapping("/chat/history")
