@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class ChatService {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @Async("taskExecutor")
     public void sendToKafka(Message message) {
@@ -37,5 +41,6 @@ public class ChatService {
     @KafkaListener(topics = "chat-messages")
     public void listen(Message message) {
         saveToMongo(message);
+        messagingTemplate.convertAndSend("/topic/messages", message);
     }
 }
