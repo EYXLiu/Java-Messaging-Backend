@@ -1,4 +1,4 @@
-# Java Messaging
+# Java Messaging Backend
 Tech Stack: Java, Spring Boot, Websockets (STOMP), Multithreading, Kafka, Redis, MongoDB, Spring Security, Spring Data
 
 # About
